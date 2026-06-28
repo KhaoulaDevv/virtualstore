@@ -39,17 +39,17 @@ The project includes product browsing, user authentication, cart management, che
 
 ```text
 virtualstore/
-├── Ecommerce-Backend-main/
-│   └── Ecommerce-Backend-main/
-│       ├── src/
-│       ├── pom.xml
-│       └── mvnw.cmd
-├── ecommerce-frontend-main/
-│   └── ecommerce-frontend-main/
-│       ├── src/
-│       ├── package.json
-│       └── angular.json
-└── README.md
+|-- backend/
+|   |-- src/
+|   |-- pom.xml
+|   |-- mvnw
+|   `-- mvnw.cmd
+|-- frontend/
+|   |-- src/
+|   |-- package.json
+|   |-- package-lock.json
+|   `-- angular.json
+`-- README.md
 ```
 
 ## Run the Backend
@@ -57,7 +57,7 @@ virtualstore/
 Open a terminal:
 
 ```powershell
-cd Ecommerce-Backend-main\Ecommerce-Backend-main
+cd backend
 $env:JAVA_HOME='C:\Program Files\Eclipse Adoptium\jdk-17.0.19.10-hotspot'
 $env:Path="$env:JAVA_HOME\bin;$env:Path"
 .\mvnw.cmd spring-boot:run
@@ -80,7 +80,7 @@ http://localhost:8080/api/products
 Open a second terminal:
 
 ```powershell
-cd ecommerce-frontend-main\ecommerce-frontend-main
+cd frontend
 npm.cmd install
 npm.cmd start
 ```
