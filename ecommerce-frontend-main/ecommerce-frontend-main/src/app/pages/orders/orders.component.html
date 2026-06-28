@@ -1,0 +1,61 @@
+<div class="max-w-5xl mx-auto px-6 py-8 animate-fade-in-up">
+  <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#5f7656] mb-2">Account</p>
+  <h1 class="text-3xl font-extrabold tracking-tight mb-8 text-[#17211a]">Order History</h1>
+
+  @if (isLoading()) {
+    <div class="space-y-4">
+      @for (i of [1,2]; track i) {
+        <div class="skeleton h-32 w-full rounded-lg"></div>
+      }
+    </div>
+  } @else if (orders().length === 0) {
+    <div class="text-center py-20 surface-panel rounded-lg">
+      <div class="w-16 h-16 mx-auto mb-4 bg-[#edf7df] rounded-lg flex items-center justify-center">
+        <svg class="w-8 h-8 text-[#5f7656]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+      </div>
+      <h3 class="text-lg font-bold text-[#17211a]">No orders yet</h3>
+      <p class="text-[#5f7656] mt-1 mb-6">Your order history will appear here</p>
+      <a routerLink="/" class="inline-flex px-6 py-3 btn-primary text-sm font-bold rounded-lg">
+        Start Shopping
+      </a>
+    </div>
+  } @else {
+    <div class="space-y-4">
+      @for (order of orders(); track order.id) {
+        <div class="surface-panel rounded-lg overflow-hidden">
+          <div class="px-6 py-4 bg-[#edf7df]/70 border-b border-[#70805c]/20 flex items-center justify-between flex-wrap gap-2">
+            <div class="flex items-center gap-4">
+              <span class="text-sm font-bold text-[#17211a]">Order #{{ order.id }}</span>
+              <span class="text-xs text-[#5f7656]">{{ order.createdAt | date:'medium' }}</span>
+            </div>
+            <span class="text-sm font-extrabold text-[#17211a]">{{ getOrderTotal(order) }} MAD</span>
+          </div>
+          <div class="p-6">
+            <div class="space-y-3">
+              @for (item of order.orderItems; track item.id) {
+                <div class="flex items-center justify-between text-sm gap-4">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 bg-[#edf7df] rounded-lg flex items-center justify-center shrink-0 overflow-hidden">
+                      @if (item.product.thumbnail) {
+                        <img [src]="item.product.thumbnail" class="w-full h-full object-cover"/>
+                      } @else {
+                        <svg class="w-5 h-5 text-[#5f7656]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                      }
+                    </div>
+                    <div class="min-w-0">
+                      <p class="font-bold text-[#17211a] truncate">{{ item.product.title }}</p>
+                      <p class="text-[#5f7656]">Qty: {{ item.quantity }} x {{ item.price }} MAD</p>
+                    </div>
+                  </div>
+                  <span class="font-bold text-[#17211a] shrink-0">{{ item.price * item.quantity }} MAD</span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

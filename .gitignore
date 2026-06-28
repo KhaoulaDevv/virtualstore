@@ -1,0 +1,15 @@
+.vscode/
+
+# Backend build output
+**/target/
+
+# Frontend dependencies and build output
+**/node_modules/
+**/dist/
+**/.angular/cache/
+
+# Logs and OS files
+*.log
+*_code.txt
+Thumbs.db
+.DS_Store
